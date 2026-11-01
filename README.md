@@ -13,8 +13,6 @@ docker compose up --build
 
 Открыть http://localhost:8080.
 
-Без Docker: Java 21, PostgreSQL, база `students_db`, логин и пароль `postgres`. Настройки в `src/main/resources/application.yml`. Запуск: `sh mvnw spring-boot:run`, на Windows — `mvnw.cmd spring-boot:run`.
-
 ## Учётные записи
 
 | Логин | Пароль | Доступ |
