@@ -1,52 +1,26 @@
-# Student — бэкенд и простой фронт
+# Student
 
-Готовый учебный проект на основе https://github.com/dorzhogun/fun-student.
-Фронт: HTML, CSS, JavaScript без npm и сборки. Все кнопки обращаются к API этого же приложения.
+Учёт студентов: Spring Boot, PostgreSQL, HTML, CSS и JavaScript.
+Бэкенд основан на [fun-student](https://github.com/dorzhogun/fun-student).
 
-## Самый простой запуск
+## Запуск
 
-Установите и запустите Docker Desktop. В папке проекта выполните:
+С запущенным Docker Desktop:
 
-```
+```sh
 docker compose up --build
 ```
 
-Откройте http://localhost:8080. База данных создаётся автоматически, записи сохраняются в Docker volume. Остановка: `docker compose down`.
+Открыть http://localhost:8080.
 
-## Вход
+Без Docker: Java 21, PostgreSQL, база `students_db`, логин и пароль `postgres`. Настройки в `src/main/resources/application.yml`. Запуск: `sh mvnw spring-boot:run`, на Windows — `mvnw.cmd spring-boot:run`.
 
-| Email | Пароль | Возможности |
+## Учётные записи
+
+| Логин | Пароль | Доступ |
 | --- | --- | --- |
-| admin@example.com | admin | Список, поиск, карточки, создание, изменение контактов и удаление студентов |
-| teacher@example.com | teacher | Список, поиск и просмотр карточек |
-| superadmin@example.com | superAdmin | Список, поиск, создание, изменение email, пароля и ролей, удаление пользователей |
+| admin@example.com | admin | Добавление, изменение контактов и удаление студентов |
+| teacher@example.com | teacher | Просмотр студентов |
+| superadmin@example.com | superAdmin | Управление пользователями и ролями |
 
-Пустой пароль при изменении пользователя сохраняет старый пароль. Для студента изменяются только телефон и email — так устроен исходный API. Токен хранится в памяти; после обновления страницы войдите снова. SUPER_ADMIN управляет пользователями, а ADMIN студентами, как в исходных правилах доступа.
-
-## Запуск без Docker
-
-Нужны JDK 21 и PostgreSQL. Создайте базу `students_db`, пользователь и пароль по умолчанию `postgres`. Настройки — `src/main/resources/application.yml`.
-
-macOS/Linux: `sh mvnw spring-boot:run`
-
-Windows: `mvnw.cmd spring-boot:run`
-
-Затем откройте http://localhost:8080.
-
-## Что загрузить на GitHub
-
-Все файлы из этой папки, включая `src`, `pom.xml`, `mvnw`, `mvnw.cmd`, `.mvn`, `Dockerfile`, `compose.yaml` и README. Папку `target` загружать не нужно. Можно создать свой репозиторий и загрузить файлы через Upload files; для сохранения скрытой папки `.mvn` удобнее GitHub Desktop или git.
-
-GitHub хранит исходники. Чтобы открыть рабочее приложение, его нужно запустить приведённой выше командой. GitHub Pages не запускает Java и PostgreSQL.
-
-## Изменения в исходном бэкенде
-
-- Разрешена загрузка страницы входа, CSS и JS без токена.
-- Неавторизованные API-запросы получают 401.
-- Исправлен PUT /api/v1/users/{id}: поиск по ID, обновление email, ролей и необязательного пароля, возврат результата вместо null.
-- Повторный email при создании/изменении пользователя возвращает 409.
-- Добавлены интеграционные тесты с отдельной временной H2-базой. Рабочая база остаётся PostgreSQL.
-
-Проверка: `sh mvnw test`. Тест проверяет отдачу файлов фронта, вход, CRUD студентов и пользователей, изменение пароля и ограничения ролей.
-
-Учебные пароли и JWT-ключ из исходного проекта предназначены для локальной работы. Перед публичным размещением замените их.
+Проверка тестов: `sh mvnw test`.
